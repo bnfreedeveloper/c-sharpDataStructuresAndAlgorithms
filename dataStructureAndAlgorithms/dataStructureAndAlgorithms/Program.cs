@@ -128,5 +128,16 @@ var resultBis = ArrayOp.PositiveNegativeSumBis(new double[] { 15, 25, 19, -87, 7
 Console.WriteLine("nombre d'éléments inférieurs à 0 :" + resultBis[0]);
 Console.WriteLine("number of elements superior to 0 : " + resultBis[1]);
 #endregion
+
+#region chain filters on array with expression delegate 
+var expressionsForFilteringIntArray = new Expression<Func<int, bool>>[]
+{
+    x => x > 0,
+    x => x > 20,
+    x => x > 25 && x < 60
+};
+var resultFilteredArray = ArrayOp.ChainFiltering(new int[] { 15, 36, 45, 87, 12, 9, 100, 55 }, expressionsForFilteringIntArray);
+Array.ForEach(resultFilteredArray, x => Console.WriteLine(x));
+#endregion
 Console.ReadLine(); 
 

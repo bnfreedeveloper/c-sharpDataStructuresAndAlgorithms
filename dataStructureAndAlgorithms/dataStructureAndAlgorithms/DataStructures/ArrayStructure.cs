@@ -140,6 +140,21 @@ namespace dataStructureAndAlgorithms.DataStructures
             return result.ToArray();
 
         }
+
+        public static T[] ChainFiltering<T>(T[] arr, Expression<Func<T,bool>>[] filters)
+        {
+            var result = arr.AsQueryable();
+
+            if (filters.Length == 0) return arr;
+            else
+            {
+                foreach(var filter in filters)
+                {
+                    result = result.Where(filter);  
+                }
+            }
+            return result.ToArray();
+        }
     }
 
 #region delegates
