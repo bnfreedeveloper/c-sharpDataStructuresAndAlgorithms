@@ -2,6 +2,7 @@
 //Console.WriteLine("Hello, World!");
 
 using dataStructureAndAlgorithms.DataStructures;
+using System.Linq.Expressions;
 using static dataStructureAndAlgorithms.DataStructures.ArrayStructure;
 //ArrayStructure test = new ArrayStructure();
 //test.Operations();
@@ -110,8 +111,22 @@ static int Regression(int x)
     return Calcul(x);
     
 }
-#endregion
+
 Console.WriteLine($"number of steps for Number 10 :{Regression(10)}");
 Console.WriteLine($"number of steps for Number 20(normally on steps more compare to 10) :{Regression(20)}");
+#endregion
+
+#region count number of positives and negatives numbers in an array, with use array of expression func or array of func only
+Expression<Func<Double, bool>> testNegativesNumbers = x => x <0;
+Expression<Func<Double, bool>> testPositivesNumbers = x => x > 0;
+
+var resultComp = ArrayOp.PositiveNegativeSum(new double[] {15,25,19,-87,74,-36,-78,14},
+    new Expression<Func<Double, bool>>[] {testNegativesNumbers,testPositivesNumbers} );
+Console.WriteLine("nombre d'éléments inférieurs à 0 :" + resultComp[0]);
+Console.WriteLine("number of elements superior to 0 : " +resultComp[1]);
+var resultBis = ArrayOp.PositiveNegativeSumBis(new double[] { 15, 25, 19, -87, 74, -36, -78, 14 }, new Func<double, bool>[] { x => x < 0, x => x > 0 });
+Console.WriteLine("nombre d'éléments inférieurs à 0 :" + resultBis[0]);
+Console.WriteLine("number of elements superior to 0 : " + resultBis[1]);
+#endregion
 Console.ReadLine(); 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -121,7 +122,25 @@ namespace dataStructureAndAlgorithms.DataStructures
         {
             return opRef(ref x, ref y); 
         }
-   }
+        public static int[] PositiveNegativeSum<T>(T[] values, Expression<Func<T, bool>>[] checkValues)
+        {
+            var result = new List<int>();
+            var totalNegativesNumber = values.Count(x => checkValues[0].Compile().Invoke(x));
+            var totalPositivesNumber = values.Count(x => checkValues[1].Compile().Invoke(x));
+            result.AddRange(new int[] { totalNegativesNumber, totalPositivesNumber });
+            return result.ToArray();
+
+        }
+        public static int[] PositiveNegativeSumBis(double[] values,Func<double,bool>[] checkValues)
+        {
+            var result = new List<int>();
+            var totalNegativesNumber = values.Count(x =>checkValues[0](x));
+            var totalPositivesNumber = values.Count(x => checkValues[1](x));
+            result.AddRange(new int[] { totalNegativesNumber, totalPositivesNumber });
+            return result.ToArray();
+
+        }
+    }
 
 #region delegates
     //if i want to use ref i need to use a delegate 
